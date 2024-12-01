@@ -1,5 +1,4 @@
 import os
-import re
 from pathlib import Path
 
 from main.day01.historian_hysteria import solve_p1, solve_p2
@@ -26,7 +25,7 @@ def read_input(file_name):
         left = []
         right = []
         for line in f:
-            l, r = re.findall(r'\d+', line.strip())
+            l, r = line.strip().split()
             left.append(int(l))
             right.append(int(r))
         return left, right
