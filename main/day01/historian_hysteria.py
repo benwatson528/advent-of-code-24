@@ -2,7 +2,7 @@ from collections import Counter
 
 
 def solve_p1(l, r) -> int:
-    return sum(map(lambda x: abs(x[0] - x[1]), zip(sorted(l), sorted(r))))
+    return sum(abs(a - b) for a, b in zip(sorted(l), sorted(r)))
 
 
 def solve_p2(l, r) -> int:
