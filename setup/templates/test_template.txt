@@ -14,5 +14,4 @@ def test_p1_real():
 
 def read_input(file_name):
     with open(os.path.join(Path(__file__).parent.absolute(), file_name)) as f:
-        lines = f.read().splitlines()
-        return lines
+        return f.read().splitlines()
