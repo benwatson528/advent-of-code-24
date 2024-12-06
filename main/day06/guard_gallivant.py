@@ -13,7 +13,7 @@ def solve_p2(obstructions, start) -> int:
 
 def move(current, direction, obstructions):
     visited = {(current, direction)}
-    max_x, max_y = max(x for x, _ in obstructions), max(y for y, _ in obstructions)
+    max_x, max_y = max(x for x, _ in obstructions), max(y for _, y in obstructions)
     while 0 <= current[0] <= max_x and 0 <= current[1] <= max_y:
         next_step = current[0] + MOVEMENTS[direction][0], current[1] + MOVEMENTS[direction][1]
         if next_step in obstructions:
