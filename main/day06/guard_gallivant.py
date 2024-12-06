@@ -8,7 +8,7 @@ def solve_p1(obstructions, start) -> int:
 
 def solve_p2(obstructions, start) -> int:
     original_visited = move(start, "^", obstructions)
-    return sum(len(move(start, "^", obstructions | {c})) == 0 for c in {c for c, _ in original_visited if c != start})
+    return sum(not move(start, "^", obstructions | {c}) for c in {c for c, _ in original_visited if c != start})
 
 
 def move(current, direction, obstructions):
@@ -19,7 +19,7 @@ def move(current, direction, obstructions):
         if next_step in obstructions:
             direction = DIRECTIONS[direction]
         elif (next_step, direction) in visited:
-            return set()
+            return None
         else:
             current = next_step
         visited.add((current, direction))
