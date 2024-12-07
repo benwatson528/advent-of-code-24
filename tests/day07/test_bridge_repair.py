@@ -2,7 +2,6 @@ import os
 import re
 from pathlib import Path
 
-from day07.bridge_repair import ConcatableNumber
 from main.day07.bridge_repair import solve
 
 
@@ -24,4 +23,4 @@ def test_p2_real():
 
 def read_input(file_name):
     with open(os.path.join(Path(__file__).parent.absolute(), file_name)) as f:
-        return [[ConcatableNumber(int(x)) for x in re.findall(r"\d+", line)] for line in f]
+        return [[int(x) for x in re.findall(r"\d+", line)] for line in f]
