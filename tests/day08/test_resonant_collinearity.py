@@ -10,7 +10,15 @@ def test_p1_simple():
 
 
 def test_p1_real():
-    assert solve(*read_input("data/input.txt")) == 344  # too low
+    assert solve(*read_input("data/input.txt")) == 344
+
+
+def test_p2_simple():
+    assert solve(*read_input("data/test_input.txt"), is_expanded=True) == 34
+
+
+def test_p2_real():
+    assert solve(*read_input("data/input.txt"), is_expanded=True) == 1182
 
 
 def read_input(file_name):
@@ -20,4 +28,4 @@ def read_input(file_name):
             for x, a in enumerate(row.strip()):
                 if a != ".":
                     antennas[a].append((x, y))
-    return antennas, (x, y)
+    return antennas, y
