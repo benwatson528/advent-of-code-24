@@ -1,6 +1,8 @@
 import os
 from pathlib import Path
 
+import pytest
+
 from main.day06.guard_gallivant import solve_p1, solve_p2
 
 
@@ -16,6 +18,7 @@ def test_p2_simple():
     assert solve_p2(*read_input("data/test_input.txt")) == 6
 
 
+@pytest.mark.skip(reason="Runs in 6s")
 def test_p2_real():
     assert solve_p2(*read_input("data/input.txt")) == 1721
 

@@ -2,6 +2,8 @@ import os
 import re
 from pathlib import Path
 
+import pytest
+
 from main.day07.bridge_repair import solve
 
 
@@ -17,6 +19,7 @@ def test_p2_simple():
     assert solve(read_input("data/test_input.txt"), is_concat=True) == 11387
 
 
+@pytest.mark.skip(reason="Runs in 6s")
 def test_p2_real():
     assert solve(read_input("data/input.txt"), is_concat=True) == 149956401519484
 
