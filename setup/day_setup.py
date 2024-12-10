@@ -35,7 +35,7 @@ def read_template_file(template_file_name):
 
 
 date = datetime.today().strftime('%d')
-use_current_day = input(f"Do you want to create files for today (day {date})? ([y]/n): ") or "y"
+use_current_day = input(f"Do you want to create files for today (day {date})? ([Y]/n): ") or "y"
 if use_current_day.lower() == "y":
     day = int(date)
 else:
