@@ -9,3 +9,7 @@ def test_p1_simple():
 
 def test_p1_real():
     assert solve(parse_input("17639 47 3858 0 470624 9467423 5 188"), 25) == 203228
+
+
+def test_p2_real():
+    assert solve(parse_input("17639 47 3858 0 470624 9467423 5 188"), 75) == 240884656550923

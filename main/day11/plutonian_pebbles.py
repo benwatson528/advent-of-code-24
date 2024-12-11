@@ -1,7 +1,15 @@
+from collections import Counter
+
+
 def solve(stones, num_blinks) -> int:
-    for i in range(num_blinks):
-        stones = [x for s in stones for x in apply_stone_rule(s)]
-    return len(stones)
+    stones_counter = Counter(stones)
+    for _ in range(num_blinks):
+        new_stones_counter = Counter()
+        for stone, multiplier in stones_counter.items():
+            for s in apply_stone_rule(stone):
+                new_stones_counter[s] += multiplier
+        stones_counter = new_stones_counter
+    return sum(stones_counter.values())
 
 
 def apply_stone_rule(stone):
