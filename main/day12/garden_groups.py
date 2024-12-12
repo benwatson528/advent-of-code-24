@@ -1,17 +1,13 @@
-def solve_p1(garden) -> int:
-    return sum(find_regions(plants) for plants in garden.values())
+def solve(garden, count_straight=False) -> int:
+    return sum(find_regions(plants, count_straight) for plants in garden.values())
 
 
-def solve_p2(garden) -> int:
-    return sum(find_regions(plants) for plants in garden.values())
-
-
-def find_regions(plants):
+def find_regions(plants, count_straight):
     regions = []
     for plant in plants:
         if plant not in [x for xs in regions for x in xs]:
             regions.append(build_region(plant, plants))
-    return sum(price_region(r) for r in regions)
+    return sum(price_region(r, count_straight) for r in regions)
 
 
 def build_region(plant, plants):
@@ -27,8 +23,11 @@ def build_region(plant, plants):
     return region
 
 
-def price_region(region):
-    return len(region) * sum(4 - sum([p in get_neighbours(*plant) for p in region]) for plant in region)
+def price_region(region, count_straight):
+    if count_straight:
+        return 0
+    else:
+        return len(region) * sum(4 - sum([p in get_neighbours(*plant) for p in region]) for plant in region)
 
 
 get_neighbours = lambda x1, y1: [(x1 - 1, y1), (x1 + 1, y1), (x1, y1 - 1), (x1, y1 + 1)]
