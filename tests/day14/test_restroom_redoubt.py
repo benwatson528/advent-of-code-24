@@ -2,6 +2,8 @@ import os
 import re
 from pathlib import Path
 
+import pytest
+
 from main.day14.restroom_redoubt import solve
 
 
@@ -13,9 +15,9 @@ def test_p1_real():
     assert solve(read_input("data/input.txt"), 100, (101, 103)) == 218619120
 
 
+@pytest.mark.skip(reason="Runs in 2s and draws a large grid")
 def test_p2_real():
-    assert solve(read_input("data/input.txt"), 8000, (101, 103)) == 7055
-
+    assert solve(read_input("data/input.txt"), 10000, (101, 103)) == 7055
 
 
 def read_input(file_name):

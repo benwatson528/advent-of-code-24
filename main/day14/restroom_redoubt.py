@@ -5,7 +5,7 @@ def solve(robots, num_turns, bounds) -> int:
     for i in range(num_turns):
         robots = [move_robot(r, bounds) for r in robots]
         if is_potential_tree(robots):
-            draw_grid(robots, bounds, i)
+            draw_grid(robots, bounds)
             return i + 1
 
     quadrants = [0] * 5
@@ -54,7 +54,7 @@ def is_potential_tree(robots):
     return False
 
 
-def draw_grid(robots, bounds, i):
+def draw_grid(robots, bounds):
     print()
     robot_coords = {(r[0], r[1]) for r in robots}
     for y in range(bounds[1]):
