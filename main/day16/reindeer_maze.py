@@ -34,12 +34,8 @@ def find_min_path(current, direction, walls, end):
         to_visit.append((current, CLOCKWISE_TURNS[direction], score + 1000, tiles_visited | {current}))
         to_visit.append((current, ANTICLOCKWISE_TURNS[direction], score + 1000, tiles_visited | {current}))
 
-
     lowest_end_paths = {k: v for k, v in total_visited.items() if k[0] == end}
-
-    min_score = min(s[0] for t, s in visited.items() if t[0] == end)
-    shortest = {t: s for t, s in visited.items() if t[0] == end and s[0] == min_score}
-    return shortest
+    return min(s[0] for t, s in visited.items() if t[0] == end)
 
 
 move = lambda o, m: (o[0] + DIRECTIONS[m][0], o[1] + DIRECTIONS[m][1])
