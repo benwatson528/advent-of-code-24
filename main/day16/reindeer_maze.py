@@ -19,8 +19,6 @@ def find_min_path(current, direction, walls, end):
         current, direction, score, tiles_visited = to_visit.popleft()
         if (current, direction) in visited and score > visited[(current, direction)][0]:
             continue
-        # elif (current, direction) in visited and score == visited[(current, direction)][0]:
-        #     total_visited[current].update(visited[(current, direction)][1])
         elif current in walls:
             continue
 
