@@ -1,4 +1,4 @@
-def solve(register, program) -> str:
+def solve_p1(register, program) -> str:
     i = 0
     output = []
     while i < len(program):
@@ -6,6 +6,27 @@ def solve(register, program) -> str:
         if op_output is not None:
             output.append(str(op_output))
     return ",".join(output)
+
+
+def solve_p2(register, program) -> int:
+    original_register = register.copy()
+    a = 100
+    while True:
+        register = original_register.copy()
+        register["A"] = a
+        i = 0
+        output = []
+        while i < len(program):
+            i, op_output = operate(register, program, i)
+            if op_output is not None:
+                output.append(op_output)
+
+        if output == program:
+            return a
+        elif program[len(program) - len(output):] == output:
+            a *= 8
+        else:
+            a += 1
 
 
 def operate(register, program, i):
