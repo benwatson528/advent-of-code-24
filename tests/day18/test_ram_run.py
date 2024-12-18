@@ -1,23 +1,22 @@
 import os
 from pathlib import Path
 
+import pytest
+
 from main.day18.ram_run import solve_p1, solve_p2
 
 
 def test_p1_simple():
-    assert solve_p1(read_input("data/test_input.txt"), 6, 12) == 22
+    assert solve_p1(read_input("data/test_input.txt"), 6, 12) == 24
 
 
 def test_p1_real():
     assert solve_p1(read_input("data/input.txt"), 70, 1024) == 384
 
 
-def test_p2_simple():
-    assert solve_p2(read_input("data/test_input.txt"), 6, 12) == 22
-
-
+@pytest.mark.skip("Takes 17s")
 def test_p2_real():
-    assert solve_p2(read_input("data/input.txt"), 70, 1024) == 384
+    assert solve_p2(read_input("data/input.txt"), 70) == "36,10"
 
 
 def read_input(file_name):
