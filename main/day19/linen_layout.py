@@ -11,6 +11,6 @@ def solve_p2(patterns, designs) -> int:
 
 @cache
 def is_possible(design, patterns):
-    return 1 if len(design) == 0 else sum(
-        is_possible(design.removeprefix(p), patterns) for p in
-        [p for p in patterns if design.startswith(p)])
+    return sum(
+        is_possible(design.removeprefix(p), patterns) for p in [p for p in patterns if design.startswith(p)]) if len(
+        design) else 1
