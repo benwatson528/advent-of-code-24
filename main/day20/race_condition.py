@@ -32,7 +32,7 @@ def find_valid_ends(start, paths, radius, bounds):
     valid_ends = {}
     while to_visit:
         current, steps = to_visit.popleft()
-        if current in seen or current[0] < 0 or current[1] < 0 or current[0] > bounds[0] or current[1] > bounds[1]:
+        if current in seen or not (0 <= current[0] <= bounds[0]) or not (0 <= current[1] <= bounds[1]):
             continue
         seen.add(current)
         if current in paths:

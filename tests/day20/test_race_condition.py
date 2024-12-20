@@ -29,12 +29,9 @@ def read_input(file_name):
         path = []
         for y, row in enumerate(raw):
             for x, c in enumerate(row):
-                if c == ".":
+                if c in ".SE":
                     path.append((x, y))
-                elif c == 'S':
+                if c == 'S':
                     start = (x, y)
-                    path.append((x, y))
-                elif c == 'E':
-                    path.append((x, y))
 
     return path, start
