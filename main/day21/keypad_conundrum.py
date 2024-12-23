@@ -8,7 +8,6 @@ NUMPAD_GRID = {"7": (0, 0), "8": (1, 0), "9": (2, 0),
                "4": (0, 1), "5": (1, 1), "6": (2, 1),
                "1": (0, 2), "2": (1, 2), "3": (2, 2),
                "0": (1, 3), "A": (2, 3)}
-# ROBOT_POSITIONS = ['A'] * 2
 
 def solve(commands, num_robots) -> int:
     numpad_paths = build_pad_paths(NUMPAD_GRID)
@@ -26,31 +25,24 @@ def move_keypad(command, numpad_paths, arrowpad_paths, num_robots):
     top_level_moves = []
     for next_numpad in command:
         numpad_moves = numpad_paths[(numpad_position, next_numpad)]
-        # all_numpad_moves = list(permutations(numpad_moves, len(numpad_moves)))
-        ans = move_arrows_rec(sorted(numpad_moves), num_robots, arrowpad_paths)
+        ans = move_arrows_rec(numpad_moves, num_robots, arrowpad_paths)
         top_level_moves.extend(ans)
-        top_level_moves.append("A")
+        # top_level_moves.append("A")
         numpad_position = next_numpad
     str_ans = "".join(top_level_moves)
     return len(top_level_moves)
 
 
 def move_arrows_rec(movements, num_robots, arrowpad_paths):
-    robot_position = "A"
     if num_robots == 0:
         return movements
     else:
-        # current_robot_idx = len(ROBOT_POSITIONS) - num_robots
         robot_position = "A"
         result = ""
-        for m in sorted(movements):
-            partial = move_arrows_rec(arrowpad_paths[(robot_position, m)] + "A" + arrowpad_paths[(m, "A")], num_robots - 1, arrowpad_paths)
-            # ROBOT_POSITIONS[current_robot_idx] = m
+        for m in movements:
+            partial = move_arrows_rec(arrowpad_paths[("A", m)] + "A" + arrowpad_paths[(m, "A")], num_robots - 1, arrowpad_paths)
             robot_position = m
             result += partial
-        # result = "".join(
-        #     move_arrows_rec(arrowpad_paths[('A', movement)] + "A", num_robots - 1, arrowpad_paths) for movement in
-        #     movements)
         return result
 
 
