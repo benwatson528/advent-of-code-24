@@ -1,19 +1,26 @@
 import os
 from pathlib import Path
 
-from main.day24.crossed_wires import solve
+import pytest
+
+from main.day24.crossed_wires import solve_p1, solve_p2
 
 
 def test_p1_simple():
-    assert solve(*read_input("data/test_input.txt")) == 4
+    assert solve_p1(*read_input("data/test_input.txt")) == 4
 
 
 def test_p1_simple_large():
-    assert solve(*read_input("data/test_input_large.txt")) == 2024
+    assert solve_p1(*read_input("data/test_input_large.txt")) == 2024
 
 
 def test_p1_real():
-    assert solve(*read_input("data/input.txt")) == 48508229772400
+    assert solve_p1(*read_input("data/input.txt")) == 48508229772400
+
+
+@pytest.mark.skip(reason="Manual graph visualisation")
+def test_p2_real():
+    assert solve_p2(*read_input("data/input.txt")) == ""
 
 
 def read_input(file_name):
