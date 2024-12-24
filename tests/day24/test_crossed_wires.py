@@ -18,9 +18,9 @@ def test_p1_real():
     assert solve_p1(*read_input("data/input.txt")) == 48508229772400
 
 
-@pytest.mark.skip(reason="Manual graph visualisation")
+@pytest.mark.skip(reason="Manual graph visualisation and investigation")
 def test_p2_real():
-    assert solve_p2(*read_input("data/input.txt")) == ""
+    assert solve_p2(*read_input("data/input_modified.txt")) == "cqr,ncd,nfj,qnw,vkg,z15,z20,z37"
 
 
 def read_input(file_name):
