@@ -1,6 +1,8 @@
 from collections import deque, defaultdict
+from functools import cache
 from itertools import permutations
 
+BIG_NUMBER = 99999999999999999999999
 DIRECTIONS = {"<": (-1, 0), "v": (0, 1), "^": (0, -1), ">": (1, 0)}
 ARROWPAD_GRID = {"^": (1, 0), "A": (2, 0),
                  "<": (0, 1), "v": (1, 1), ">": (2, 1)}
@@ -9,66 +11,64 @@ NUMPAD_GRID = {"7": (0, 0), "8": (1, 0), "9": (2, 0),
                "1": (0, 2), "2": (1, 2), "3": (2, 2),
                "0": (1, 3), "A": (2, 3)}
 
+
 def solve(commands, num_robots) -> int:
-    numpad_paths = build_pad_paths(NUMPAD_GRID)
-    arrowpad_paths = build_pad_paths(ARROWPAD_GRID)
     score = 0
     for command in commands:
         numeric_component = int(command[:3])
-        ans_length = move_keypad(command, numpad_paths, arrowpad_paths, num_robots)
+        ans_length = move_keypad(command, num_robots)
         score += ans_length * numeric_component
     return score
 
 
-def move_keypad(command, numpad_paths, arrowpad_paths, num_robots):
+def move_keypad(command, num_robots):
     numpad_position = 'A'
-    top_level_moves = []
+    top_level_moves = 0
     for next_numpad in command:
-        shortest = "dasdnifd"*9999
-        paths = numpad_paths[(numpad_position, next_numpad)]
+        shortest = BIG_NUMBER
+        paths = NUMPAD_PATHS[(numpad_position, next_numpad)]
         if paths:
             for path in paths:
-                ans = move_arrows_rec(path, num_robots, arrowpad_paths)
-                if len(ans) < len(shortest):
+                ans = move_arrows_rec(path, num_robots)
+                if ans < shortest:
                     shortest = ans
         else:
-            shortest = ""
-        top_level_moves.extend(shortest)
-        top_level_moves.append("A")
+            shortest = 0
+        top_level_moves += shortest + 1
         numpad_position = next_numpad
-    str_ans = "".join(top_level_moves)
-    return len(top_level_moves)
+    return top_level_moves
 
 
-def move_arrows_rec(movements, num_robots, arrowpad_paths):
+@cache
+def move_arrows_rec(movements, num_robots):
     if num_robots == 0:
-        return movements
-    else:
-        robot_position = "A"
-        result = ""
-        for m in movements:
-            shortest = "dfsfdsfgsdf" * 9999
-            paths = arrowpad_paths[(robot_position, m)]
-            if paths:
-                for path in paths:
-                    partial = move_arrows_rec(path + "A", num_robots - 1, arrowpad_paths)
-                    if len(partial) < len(shortest):
-                        shortest = partial
-            else:
-                shortest = ""
-            robot_position = m
-            result += shortest
-        shortest = "dfsfdsfgsdf" * 9999
-        paths = arrowpad_paths[(robot_position, "A")]
+        return len(movements)
+
+    robot_position = "A"
+    result = 0
+    for m in movements:
+        shortest = BIG_NUMBER
+        paths = ARROWPAD_PATHS[(robot_position, m)]
         if paths:
             for path in paths:
-                partial = move_arrows_rec(path + "A", num_robots - 1, arrowpad_paths)
-                if len(partial) < len(shortest):
+                partial = move_arrows_rec(path, num_robots - 1)
+                if partial < shortest:
                     shortest = partial
         else:
-            shortest = ""
-        result += shortest
-        return result
+            shortest = 0
+        robot_position = m
+        result += shortest + 1
+    shortest = BIG_NUMBER
+    paths = ARROWPAD_PATHS[(robot_position, "A")]
+    if paths:
+        for path in paths:
+            partial = move_arrows_rec(path, num_robots - 1)
+            if partial < shortest:
+                shortest = partial
+    else:
+        shortest = 0
+    result += shortest
+    return result
 
 
 def build_pad_paths(pad):
@@ -97,3 +97,7 @@ def build_pad_paths(pad):
         shortest_length = len(min(ls, key=len))
         shortest_pad_paths[k].extend(l for l in ls if len(l) == shortest_length)
     return shortest_pad_paths
+
+
+ARROWPAD_PATHS = build_pad_paths(ARROWPAD_GRID)
+NUMPAD_PATHS = build_pad_paths(NUMPAD_GRID)
